@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+require 'haml'
+require 'less'
+require 'yaml'
+require 'active_support/core_ext/hash/conversions'
+require 'highline/import'
+require 'jira'
+require 'pry'
+
+require_relative '../lib/story'
+
+config = YAML.load_file('config.yml')
+
+config[:jira][:username] = ask("username: ") { |q| q.default = ENV['USER'] }
+config[:jira][:password] = ask("password: ") { |q| q.echo = false }
+
+jira = JIRA::Client.new(config[:jira])
+
+TEMPLATE = Haml::Engine.new(File.read("assets/template.haml"))
+STYLE    = Less::Parser.new.parse(File.read('assets/style.less')).to_css
+
+STORIES = jira.get('/sr/jira.issueviews:searchrequest-xml/10107/SearchRequest-10107.xml?tempMax=1000').body
+OUTPUT   = "cards.html"
+
+stories = Hash.from_xml(STORIES)['rss']['channel']['item'].map{|s| Story.new(s)}.sort_by(&:roi).reverse
+
+File.open(OUTPUT, "w") {|f|
+  f.write TEMPLATE.render(Object.new, stories: stories, style: STYLE)
+}
+
+system "open #{OUTPUT}"

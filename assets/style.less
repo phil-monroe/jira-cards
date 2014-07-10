@@ -1,0 +1,73 @@
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  
+}
+body {
+  width: 8.5in;
+  
+  .story {
+    position: relative; 
+    width: 4.25in;
+    height: 3.666666667in;
+    float: left;
+    border-right: thin solid black;
+    border-bottom: thin solid black;
+    margin: 0;
+    padding: 1em;
+    display: block;
+    
+    .id {
+      float: right;
+      text-align: right;
+    }
+    
+    .type {
+      float: left;
+      text-align: left;
+    }
+    
+    .title {
+      font-size: 2em;
+      padding: .5em;
+      height: 3.5em;
+      overflow: hidden;
+    }
+    
+    .description {
+      height: 12em;
+      overflow: hidden;
+    }
+    
+    .bottom {
+
+    }
+    
+    .points, .value, .roi {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 2em;
+      padding-bottom: 1em;
+      width: 4.25in;
+      h3 {
+        padding-left: .25em;
+        display: inline;
+        
+      }
+    }
+    
+    .points {
+      text-align: right;
+    }
+    
+    .value {
+      text-align: left;
+    }
+    
+    .roi {
+      text-align: center;
+    }
+  }
+}

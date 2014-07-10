@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+  %link{:href=>"http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css", :rel=>"stylesheet"}
+  %style
+    = style
+  %body
+    - stories.each_slice(6) do |page_stories|
+      - page_stories.each do |story|
+        .story
+          .id= story.id
+          .type= story.type
+          .clearfix
+          .title.text-center= story.title
+          .description= story.description
+          
+          - if story.type == 'Story'
+            .value
+              Value:
+              %h3
+                = story.business_value
+            .roi
+              ROI: 
+              %h3
+                = story.roi
+            .points
+              Points:
+              %h3
+                = story.story_points
+      .page-break
