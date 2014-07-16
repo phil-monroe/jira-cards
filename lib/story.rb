@@ -26,7 +26,7 @@ class Story
   end
   
   def business_value
-    custom_field('Business Value').to_i * 100
+    (custom_field('Business Value') || @data['timeoriginalestimate'].split.first).to_i * 100 rescue 0
   end
   
   def roi
