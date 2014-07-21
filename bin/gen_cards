@@ -1,11 +1,9 @@
 #!/usr/bin/env ruby
-require 'haml'
-require 'less'
+
+
+require 'bundler/setup' 
 require 'yaml'
-require 'active_support/core_ext/hash/conversions'
-require 'highline/import'
-require 'jira'
-require 'pry'
+Bundler.require(:default)
 
 require_relative '../lib/story'
 
