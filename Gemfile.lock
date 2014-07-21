@@ -1,0 +1,50 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (4.1.4)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
+    coderay (1.1.0)
+    commonjs (0.2.7)
+    haml (4.0.5)
+      tilt
+    highline (1.6.21)
+    i18n (0.6.11)
+    jira-ruby (0.1.10)
+      activesupport
+      oauth
+    json (1.8.1)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    libv8 (3.16.14.3)
+    method_source (0.8.2)
+    minitest (5.4.0)
+    oauth (0.4.7)
+    pry (0.10.0)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    ref (1.0.5)
+    slop (3.6.0)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
+    thread_safe (0.3.4)
+    tilt (2.0.1)
+    tzinfo (1.2.1)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activesupport
+  haml
+  highline
+  jira-ruby
+  less
+  pry
+  therubyracer

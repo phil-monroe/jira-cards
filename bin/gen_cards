@@ -14,7 +14,8 @@ config = YAML.load_file('config.yml')
 config[:jira][:username] = ask("username: ") { |q| q.default = ENV['USER'] }
 config[:jira][:password] = ask("password: ") { |q| q.echo = false }
 
-config[:jira][:filter] = ask("filter: ") { |q| q.default = "10107" }
+config[:jira][:site] = ask("endpoint: ") { |q| q.default = config[:jira][:site] }
+config[:jira][:filter] = ask("filter: ") { |q| q.default = config[:jira][:filter] }
 
 jira = JIRA::Client.new(config[:jira])
 
