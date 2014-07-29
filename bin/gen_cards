@@ -11,9 +11,9 @@ config = YAML.load_file('config.yml')
 
 config[:jira][:username] = ask("username: ") { |q| q.default = ENV['USER'] }
 config[:jira][:password] = ask("password: ") { |q| q.echo = false }
-
-config[:jira][:site] = ask("endpoint: ") { |q| q.default = config[:jira][:site] }
-config[:jira][:filter] = ask("filter: ") { |q| q.default = config[:jira][:filter] }
+config[:jira][:site]     = ask("endpoint: ") { |q| q.default = config[:jira][:site] }
+config[:jira][:filter]   = ask("filter:   ") { |q| q.default = config[:jira][:filter] }
+config[:jira][:limit]    = ask("limit:    ") { |q| q.default = config[:jira][:limit] }
 
 jira = JIRA::Client.new(config[:jira])
 
@@ -23,7 +23,12 @@ STYLE    = Less::Parser.new.parse(File.read('assets/style.less')).to_css
 STORIES = jira.get("/sr/jira.issueviews:searchrequest-xml/#{config[:jira][:filter]}/SearchRequest-#{config[:jira][:filter]}.xml?tempMax=1000").body
 OUTPUT   = "cards.html"
 
-stories = Hash.from_xml(STORIES)['rss']['channel']['item'].map{|s| Story.new(s)}.sort_by(&:roi).reverse
+stories = Hash.from_xml(STORIES)['rss']['channel']['item'].map{|s| Story.new(s)}
+stories = if config[:jira][:limit].present?
+  stories.first(config[:jira][:limit].to_i)
+else
+  stories.sort_by(&:roi).reverse
+end
 
 File.open(OUTPUT, "w") {|f|
   f.write TEMPLATE.render(Object.new, stories: stories, style: STYLE)
