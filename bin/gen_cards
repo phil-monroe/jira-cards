@@ -12,13 +12,23 @@ config = YAML.load_file('config.yml')
 config[:jira][:username] = ask("username: ") { |q| q.default = ENV['USER'] }
 config[:jira][:password] = ask("password: ") { |q| q.echo = false }
 config[:jira][:site]     = ask("endpoint: ") { |q| q.default = config[:jira][:site] }
-config[:jira][:filter]   = ask("filter:   ") { |q| q.default = config[:jira][:filter] }
-config[:jira][:limit]    = ask("limit:    ") { |q| q.default = config[:jira][:limit] }
 
 jira = JIRA::Client.new(config[:jira])
 
+puts "------- Favorite Filters -------"
+filters = JSON.parse(jira.get('/rest/api/2/filter/favourite').body)
+filters.each do |filter|
+ puts '%s - %s' % [filter['id'], filter['name']]
+end
+puts "--------------------------------"
+
+config[:jira][:filter]   = ask("filter:   ") { |q| q.default = config[:jira][:filter] }
+config[:jira][:limit]    = ask("limit:    ") { |q| q.default = config[:jira][:limit] }
+
+
 TEMPLATE = Haml::Engine.new(File.read("assets/template.haml"))
 STYLE    = Less::Parser.new.parse(File.read('assets/style.less')).to_css
+
 
 STORIES = jira.get("/sr/jira.issueviews:searchrequest-xml/#{config[:jira][:filter]}/SearchRequest-#{config[:jira][:filter]}.xml?tempMax=1000").body
 OUTPUT   = "cards.html"
