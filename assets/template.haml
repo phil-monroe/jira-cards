@@ -14,17 +14,17 @@
           .title.text-center= story.title
           .description= story.description
           
-
-          .value
-            Value:
-            %h3
-              = story.business_value
-          .roi
-            ROI: 
-            %h3
-              = story.roi
-          .points
-            Points:
-            %h3
-              = story.story_points
+          - if %w(Story Epic).include?(story.type)
+            .value
+              Value:
+              %h3
+                = story.business_value
+            .roi
+              ROI: 
+              %h3
+                = story.roi
+            .points
+              Points:
+              %h3
+                = story.story_points
       .page-break
