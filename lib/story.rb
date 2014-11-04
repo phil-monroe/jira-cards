@@ -1,3 +1,5 @@
+require 'digest'
+
 class Story
   attr_reader :data
   
@@ -39,6 +41,10 @@ class Story
   
   def to_s
     "Story(id: #{id}, title: #{title}, story_points: #{story_points}, business_value: #{business_value}, roi: #{roi})"
+  end
+  
+  def hash
+    Digest::SHA256.hexdigest([title, description, id, type, story_points, business_value].map(&:to_s).join)
   end
   
   private

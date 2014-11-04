@@ -8,6 +8,9 @@ Bundler.require(:default)
 require_relative '../lib/story'
 
 config = YAML.load_file('config.yml')
+printed = YAML.load_file('.printed') || Hash.new
+puts printed.inspect
+
 
 config[:jira][:username] = ask("username: ") { |q| q.default = ENV['USER'] }
 config[:jira][:password] = ask("password: ") { |q| q.echo = false }
@@ -40,8 +43,18 @@ else
   stories.sort_by(&:roi).reverse
 end
 
+stories = stories.keep_if do |story|
+  printed[story.id] != story.hash
+end
+
 File.open(OUTPUT, "w") {|f|
   f.write TEMPLATE.render(Object.new, stories: stories, style: STYLE)
 }
 
 system "open #{OUTPUT}"
+
+stories.each do |story|
+  printed[story.id] = story.hash
+end
+
+File.open('.printed', 'w') { |f| f.puts printed.to_yaml}
