@@ -7,7 +7,8 @@
   %body
     - stories.each_slice(6) do |page_stories|
       - page_stories.each do |story|
-        .story
+        - show_value = %w(Story Epic).include?(story.type)
+        .story{:class => ('no-value' unless show_value)}
           .id= story.id
           .type= story.type
           .clearfix
@@ -15,7 +16,7 @@
             .title.text-center= story.title
             .description= story.description
           
-          - if %w(Story Epic).include?(story.type)
+          - if show_value
             .value
               Value:
               %h3
