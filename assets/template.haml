@@ -11,8 +11,9 @@
           .id= story.id
           .type= story.type
           .clearfix
-          .title.text-center= story.title
-          .description= story.description
+          .main-content
+            .title.text-center= story.title
+            .description= story.description
           
           - if %w(Story Epic).include?(story.type)
             .value
