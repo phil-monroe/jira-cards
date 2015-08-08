@@ -30,5 +30,6 @@
               %h3
                 = story.story_points
       .page-break
-    %script{ :type => "text/javascript",
-             :src => "assets/widen.js" }
+    - if allow_wide
+      %script{ :type => "text/javascript",
+               :src => "assets/widen.js" }
