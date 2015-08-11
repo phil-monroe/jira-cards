@@ -8,7 +8,7 @@ Bundler.require(:default)
 require_relative '../lib/story'
 
 config = YAML.load_file('config.yml')
-printed = YAML.load_file('.printed') || Hash.new
+printed = YAML.load_file('.printed') rescue Hash.new
 puts printed.inspect
 
 
