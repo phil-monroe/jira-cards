@@ -48,7 +48,7 @@ stories = stories.keep_if do |story|
 end
 
 File.open(OUTPUT, "w") {|f|
-  f.write TEMPLATE.render(Object.new, stories: stories, style: STYLE)
+  f.write TEMPLATE.render(Object.new, stories: stories, style: STYLE, allow_wide: config[:allow_wide])
 }
 
 system "open #{OUTPUT}"

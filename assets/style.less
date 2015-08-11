@@ -6,7 +6,7 @@ html {
 }
 body {
   width: 8.5in;
-  
+
   .story {
     position: relative; 
     width: 4.25in;
@@ -27,34 +27,29 @@ body {
       float: left;
       text-align: left;
     }
+
+    .main-content{
+      height: calc(~"100% - 3.2em");
+      overflow: hidden;
+    }
     
     .title {
       font-size: 2em;
-      padding: .5em;
-      height: 3.5em;
+      max-height: 4em;
       overflow: hidden;
     }
-    
-    .description {
-      height: 12em;
-      overflow: hidden;
-    }
-    
-    .bottom {
 
-    }
-    
     .points, .value, .roi {
       position: absolute;
       bottom: 0;
       left: 0;
-      padding: 2em;
-      padding-bottom: 1em;
       width: 4.25in;
+      padding-bottom: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
+      margin: auto;
       h3 {
-        padding-left: .25em;
         display: inline;
-        
       }
     }
     
@@ -68,6 +63,26 @@ body {
     
     .roi {
       text-align: center;
+    }
+  }
+
+  .story.no-value {
+    .main-content{
+      height: calc(~"100% - 2em");
+    }
+  }
+
+  .story.wide {
+    width: 8.5in;
+
+    .description {
+      column-count: 2;
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+    }
+
+    .points, .value, .roi {
+      width: 8.5in;
     }
   }
 }
